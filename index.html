@@ -13,22 +13,17 @@
         <link rel="stylesheet" href="src/plugins/L.Control.Zoomslider.css">
         <link rel="stylesheet" href="src/plugins/L.Control.MousePosition.css">
         <link rel="stylesheet" href="src/plugins/Leaflet.PolylineMeasure.css">
-        <link rel="stylesheet" href="src/plugins/leaflet-opencage/src/css/L.Control.OpenCageGeocoding.css">
-        <link rel="stylesheet" href="src/plugins/MarkerCluster.css">
-        <link rel="stylesheet" href="src/plugins/MarkerCluster.Default.css">
-       
+         
         <script src="src/leaflet-src.js"></script>
         <script src="src/jquery-3.2.0.min.js"></script>
         <script src="src/plugins/L.Control.Pan.js"></script>
         <script src="src/plugins/L.Control.Zoomslider.js"></script>
         <script src="src/plugins/L.Control.MousePosition.js"></script>
         <script src="src/plugins/Leaflet.PolylineMeasure.js"></script>
-        <script src="src/plugins/leaflet-opencage/src/js/L.Control.OpenCageGeocoding.js"></script>
         <script src="src/plugins/leaflet-providers.js"></script>
-        <script src="src/plugins/leaflet.ajax.min.js"></script>
-        <script src="src/plugins/leaflet.markercluster.js"></script>
 
-    <!--    ***************  Leaflet.Draw-->
+
+    <!-- Leaflet.Draw-->
         
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
@@ -49,44 +44,37 @@
 
 
         <script>
-            //Değişkenlerimizi tanımlayalım
+            //Katman değişkenleri
             var mymap;
             var lyrOSM;
             var lyrImagery;
             var fgpLyr;
             
-            //Sayfa sağ altta bulunan nitelik
-            var ctlAttribute;
-            var ctlScale;
-            var lyrSearch
 
-            //Plugini eklemek için
+            //Plugini değişkenleri
             var ctlPan;
             var ctlZoomslider;
             var ctlMouse;
             var ctlMeasure
-            var ctlEasybtn;
             var ctlLayers;
             var objBasemaps;
             var objLays;
 
-            //Drawer ekleyelim
+            //Drawer değişkenleri
            var ctlDraw;
            var fgpDrawnItems;
 
-            //Nokta Cluster
-            var lyrMarkerCluster
 
             
             //Tek fonksiyon ile haritaya nokta verisi ekleyelim
             $(document).ready(function(){
 
-                //Altlık Haritaları Ekleyelim
-                mymap = L.map('mapdiv', {center:[39.92936, 32.82333], zoom:8,
+                //Haritamızı tanımlayalım (Ekran açılışında hangi konumda başlayacak bunu bildirelim)
+                mymap = L.map('mapdiv', {center:[38.92936, 34.82333], zoom:6.5,
                 zoomControl:false,  attributionControl:false
                 });
 
-                //Altlıkları katman
+                //Altlık haritalarımızı tanımlayalım ve varsayılan olarak OSM ile uygulamamızı başlatalım
                 lyrOSM = L.tileLayer.provider('OpenStreetMap.DE');
                  lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
                  mymap.addLayer(lyrOSM);
@@ -110,7 +98,7 @@
                 ctlLayers = L.control.layers(objBasemaps, objLays).addTo(mymap);
 
 
-                //Sidebar Plugini Ekleme (Çizim araçları v.s. hepsi buranın içinde)
+                //Zoom slider, Ölçüm araçları v.s ekleyelim
                 ctlPan = L.control.pan().addTo(mymap);
                 ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
                 ctlMeasure = L.control.polylineMeasure().addTo(mymap);
@@ -132,8 +120,7 @@
                 // L.marker(e.latlng).addTo(mymap).bindPopup(e.latlng.toString()+"<br>"+dtCurrentTime.toString());
                 // });
 
-                
-
+            
 
                 //DRAW (Çizim işlemleri için kodlar)
                 ctlDraw = new L.Control.Draw({
